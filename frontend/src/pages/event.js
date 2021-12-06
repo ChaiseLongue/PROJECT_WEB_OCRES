@@ -1,7 +1,6 @@
 import React from 'react';
 import Navigation from '../components/navigation';
 import EventListTable from '../components/events';
-import "../styles/settings.css";
 
 function Event() {
     return (

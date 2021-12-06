@@ -77,7 +77,7 @@ export default function EventListTable(){
     return (
       <>
         <PopUp />
-        <Table className='tableInside' columns={columns} data={dat} />
+        <Table className='tableInside' columns={columns} data={dat}/>
       </>
     );
 }
@@ -187,7 +187,7 @@ function Table({ columns, data }) {
   
     return (
       <>
-        <table  {...getTableProps()}>
+        <table className="tableau"  {...getTableProps()}>
           <thead>
             {headerGroups.map(headerGroup => (
               <tr {...headerGroup.getHeaderGroupProps()}>
@@ -218,7 +218,7 @@ function Table({ columns, data }) {
                     {row.cells.map(cell => {
                       return (
                         //<td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                        <td {...cell.getCellProps()}>
+                        <td className="cellule" {...cell.getCellProps()}>
                           <div contentEditable onClick={(truc) => {lol=truc.target.textContent; component=truc.currentTarget; console.log("on a " + component.textContent)}} onBlur={(truc)=> handleChange(truc.target.textContent,lol)}>{cell.render('Cell')} </div>
                         </td>
                         //<input type="text" className="edit" defaultValue={cell.value} onBlur={(truc)=> console.log(truc.target.value)} />
