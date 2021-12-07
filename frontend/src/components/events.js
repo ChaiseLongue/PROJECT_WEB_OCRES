@@ -78,8 +78,24 @@ export default function EventListTable(){
       <>
         <PopUp />
         <Table className='tableInside' columns={columns} data={dat}/>
+        <div className="addEvent">
+          <button className="addBut" onClick={() => handleAdd()}> + </button>
+          <AddEvent />
+          <div class="fix"></div>
+        </div>
       </>
     );
+}
+
+function handleAdd(){
+  console.log("yo");
+  let add = document.getElementById("add");
+    if(add.style.display!="flex"){
+      add.style.display = "flex";
+      console.log("on affiche");
+    }
+    else
+    add.style.display = "none";
 }
 
 function ClickLink(params){
@@ -96,6 +112,14 @@ function PopUp(params, dvalue){
       </div>
     </div>
   );
+}
+
+function AddEvent(){
+  return (
+    <div id="add">
+      Ecris des trucs
+    </div>
+  )
 }
 
 function sendData(){
