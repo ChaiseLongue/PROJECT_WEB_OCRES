@@ -58,6 +58,16 @@
     width: 100%;
 }
 
+#pop-up input{
+    background-color: transparent;
+    color: var(--text);
+    font-size: 1.2rem;
+    font-weight: 600;
+    border: 2px solid rgba(255, 38, 0, 1);
+    border-radius: 5px;
+    height: 40px;
+}
+
 button{
     width: 30%;
     min-width: 70px;
@@ -91,9 +101,9 @@ button:hover{
 }
 
 .addEvent{
-    width: 70%;
+    width: 60%;
     min-width: 450px;
-    height: 500px;
+    height: 450px;
     text-align: start;
     display: flex;
     flex-direction: column;
@@ -172,19 +182,13 @@ button:hover{
     margin-top: 5px;
 }
 
+#submit{
+    font-weight: 900;
+}
+
 .fix{
     width: 100%;
   height: 5px;
   clear: both;
   overflow: auto;
-}
-
-#pop-up input{
-    background-color: transparent;
-    color: var(--text);
-    font-size: 1.2rem;
-    font-weight: 600;
-    border: 2px solid rgba(255, 38, 0, 1);
-    border-radius: 5px;
-    height: 40px;
 }

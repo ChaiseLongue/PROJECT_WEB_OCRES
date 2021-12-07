@@ -254,13 +254,12 @@ function AddEvent(){
       <h3>Add an Event</h3>
       <form >
         <input type="text" placeholder="Event Name" />
-        <input type="text" placeholder="Event Date" />
         <div className="date">
           <label>Date of the event</label>
           <input type="date"/>
         </div>
         <input type="text" placeholder="Couvreurs" />
-        <input type="submit"/>
+        <input id="submit" type="submit" value="SUBMIT"/>
       </form>
     </div>
   )
