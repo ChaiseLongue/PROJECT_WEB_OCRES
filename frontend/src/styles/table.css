@@ -105,7 +105,7 @@ button:hover{
     min-width: 450px;
     height: 450px;
     text-align: start;
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: flex-start;
     margin-bottom: 50px;
