@@ -1,8 +1,3 @@
-.table {
-    border-spacing: 0;
-    border: 1px solid black;
-    width: 100%;
-}
 
 .tr:last-child,td {
     border-bottom: 0;
@@ -16,8 +11,13 @@
     border-bottom: 1px solid black;
     border-right: 1px solid black;
 }
-:last-child {
-    border-right: 0;
+
+.cellule:first-child{
+    border-left: 1px solid black;
+}
+
+.tableau {
+    margin: 20px;
 }
 
 .lien{
@@ -58,7 +58,17 @@
     width: 100%;
 }
 
-#pop-up button{
+#pop-up input{
+    background-color: transparent;
+    color: var(--text);
+    font-size: 1.2rem;
+    font-weight: 600;
+    border: 2px solid rgba(255, 38, 0, 1);
+    border-radius: 5px;
+    height: 40px;
+}
+
+button{
     width: 30%;
     min-width: 70px;
     height: 50px;
@@ -71,17 +81,114 @@
     font-weight: 600;
 }
 
-#pop-up button:hover{
+button:hover{
     background-color: rgba(255, 38, 0, 1);
     transition: 1s;
 }
 
-#pop-up input{
-    background-color: transparent;
+.addBut{
+    width: 50px;
+    height: 50px;
+    align-self: flex-start;
+}
+
+.theButton{
+    width: 100%;
+    text-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.addEvent{
+    width: 60%;
+    min-width: 450px;
+    height: 450px;
+    text-align: start;
+    display: none;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-bottom: 50px;
+}
+
+#add {
+    display: flex;
+    height: 100%;
+    min-width: 510px;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    text-align: start;
+    margin-left: 5.5rem;
+    background-color: orangered;
+    box-shadow: 5px 5px 10px rgb(15, 15, 15);
+    border-radius: 15px;
     color: var(--text);
-    font-size: 1.2rem;
-    font-weight: 600;
-    border: 2px solid rgba(255, 38, 0, 1);
-    border-radius: 5px;
-    height: 40px;
+}
+
+#add form{
+    display: flex;
+    height: 100%;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+#add form input{
+    color: var(--text);
+    background-color: transparent;
+    text-align: left;
+    width: 500px;
+    height: 30px;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-color: var(--text);
+    font-size: 1rem;
+    outline: 0px solid transparent;
+}
+
+#add form input::placeholder{
+    color: var(--text);
+    opacity: 0.7;
+
+}
+
+#add .date{
+    justify-content: flex-start;
+    align-self: flex-start;
+    flex-direction: column;
+    display: flex;
+    font-size: 1.3rem;
+}
+
+#add .date input{
+    opacity: 0.7;
+}
+
+#add form select{
+    color: black;
+    background-color: transparent;
+    width: 50px;
+    height: 30px;
+    border-color: orangered;
+}
+
+#add form label{
+    text-align: start;
+    margin-bottom: 5px;
+}
+
+#add h3{
+    margin-top: 5px;
+}
+
+#submit{
+    font-weight: 900;
+}
+
+.fix{
+    width: 100%;
+  height: 5px;
+  clear: both;
+  overflow: auto;
 }

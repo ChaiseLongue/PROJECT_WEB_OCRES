@@ -11,8 +11,16 @@ let component=null;
 export default function EventTables(){
   return(
     <div>
-      <EventListTable/>
       <EventModifTable/>
+      <div className="theButton">
+          <button className="addBut" id="addBut" onClick={() => handleAdd()}> + </button>
+      </div>
+      <div className="addEvent" id="addEvent">
+          <AddEvent />
+          <div class="fix"></div>
+      </div>
+      <EventListTable/>
+      
     </div>
   )
 }
@@ -82,10 +90,25 @@ function EventListTable(){
 
     return (
       <>
-        <PopUp />
-        <Table className='tableInside' columns={columns} data={dat} />
+        <Table className='tableInside' columns={columns} data={dat}/>
+        
       </>
     );
+}
+
+function handleAdd(){
+  //let add = document.getElementById("add");
+  let add = document.getElementById("addEvent");
+    if(add.style.display!="flex"){
+      add.style.display = "flex";
+      document.getElementById("addBut").innerHTML='-';
+      console.log("on affiche");
+    }
+    else{
+      add.style.display = "none";
+      document.getElementById("addBut").innerHTML='+';
+    }
+    
 }
 
 function ClickLink(params){
@@ -164,6 +187,82 @@ function PopUp(params, dvalue){
       </div>
     </div>
   );
+}
+
+/*
+<div className="date">
+          <select>
+            <option value={year.getFullYear()}>{year.getFullYear()}</option>
+            <option value={year.getFullYear() + 1}>{year.getFullYear()+1}</option>
+            <option value={year.getFullYear() + 2}>{year.getFullYear()+2}</option>
+            <option value={year.getFullYear() + 3}>{year.getFullYear()+3}</option>
+          </select>
+          <select>
+            <option value="1">Jan</option>
+            <option value='2'>Fev</option>
+            <option value='3'>Apr</option>
+            <option value='4'>Mar</option>
+            <option value='5'>May</option>
+            <option value='6'>Jun</option>
+            <option value='7'>Jul</option>
+            <option value='8'>Aug</option>
+            <option value='9'>Sep</option>
+            <option value='10'>Oct</option>
+            <option value='11'>Nov</option>
+            <option value='12'>Dec</option>
+          </select>
+          <select>
+            <option value='1'>1</option>
+            <option value='2'>2</option>
+            <option value='3'>3</option>
+            <option value='4'>4</option>
+            <option value='5'>5</option>
+            <option value='6'>6</option>
+            <option value='7'>7</option>
+            <option value='8'>8</option>
+            <option value='9'>9</option>
+            <option value='10'>10</option>
+            <option value='11'>11</option>
+            <option value='12'>12</option>
+            <option value='13'>13</option>
+            <option value='14'>14</option>
+            <option value='14'>15</option>
+            <option value='16'>16</option>
+            <option value='17'>17</option>
+            <option value='18'>18</option>
+            <option value='19'>19</option>
+            <option value='20'>20</option>
+            <option value='21'>21</option>
+            <option value='22'>22</option>
+            <option value='23'>23</option>
+            <option value='24'>24</option>
+            <option value='25'>25</option>
+            <option value='26'>26</option>
+            <option value='27'>27</option>
+            <option value='28'>28</option>
+            <option value='29'>29</option>
+            <option value='30'>30</option>
+            <option value='31'>31</option>
+          </select>
+          </div>
+*/
+
+function AddEvent(){
+  let year=new Date();
+  return (
+    <div id="add">
+      <h3>Add an Event</h3>
+      <form >
+        <input type="text" placeholder="Event Name" />
+        <div className="date">
+          <label>Date of the event</label>
+          <input type="date"/>
+        </div>
+        <input type="text" placeholder="Couvreurs" />
+        <input id="submit" type="submit" value="SUBMIT"/>
+      </form>
+    </div>
+  )
 }
 
 function sendData(){
@@ -255,7 +354,7 @@ function Table({ columns, data }) {
   
     return (
       <>
-        <table  {...getTableProps()}>
+        <table className="tableau"  {...getTableProps()}>
           <thead>
             {headerGroups.map(headerGroup => (
               <tr {...headerGroup.getHeaderGroupProps()}>
@@ -286,9 +385,10 @@ function Table({ columns, data }) {
                     {row.cells.map(cell => {
                       return (
                         //<td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                        <td {...cell.getCellProps()}>
-                          <div contentEditable onClick={(truc) => {lol=truc.target.textContent; component=truc.currentTarget; console.log("on a " + component.textContent)}} onBlur={(truc)=> handleChange(truc.target.textContent,lol)}>{cell.render('Cell')} </div>
+                        <td className="cellule" {...cell.getCellProps()}>
+                          <div >{cell.render('Cell')} </div>
                         </td>
+                        //<div contentEditable onClick={(truc) => {lol=truc.target.textContent; component=truc.currentTarget; console.log("on a " + component.textContent)}} onBlur={(truc)=> handleChange(truc.target.textContent,lol)}>{cell.render('Cell')} </div>
                         //<input type="text" className="edit" defaultValue={cell.value} onBlur={(truc)=> console.log(truc.target.value)} />
                       )
                     })}
@@ -322,7 +422,7 @@ function TableModif({ columns, data }) {
 
   return (
     <>
-      <table  {...getTableProps()}>
+      <table className="tableau" {...getTableProps()}>
         <thead>
           {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>
@@ -353,8 +453,8 @@ function TableModif({ columns, data }) {
                   {row.cells.map(cell => {
                     return (
                       //<td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                      <td {...cell.getCellProps()}>
-                        <div contentEditable onClick={(truc) => {lol=truc.target.textContent; component=truc.currentTarget; console.log("on a " + component.textContent)}} onBlur={(truc)=> handleChange(truc.target.textContent,lol)}>{cell.render('Cell')} </div>
+                      <td className="cellule" {...cell.getCellProps()}>
+                        <div contentEditable onClick={(truc) => {lol=truc.target.textContent; if(yes==false)component=truc.currentTarget; console.log("on a " + component.textContent)}} onBlur={(truc)=> handleChange(truc.target.textContent,lol)}>{cell.render('Cell')} </div>
                       </td>
                       //<input type="text" className="edit" defaultValue={cell.value} onBlur={(truc)=> console.log(truc.target.value)} />
                     )
