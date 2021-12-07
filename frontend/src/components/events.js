@@ -11,8 +11,16 @@ let component=null;
 export default function EventTables(){
   return(
     <div>
-      <EventListTable/>
       <EventModifTable/>
+      <div className="theButton">
+          <button className="addBut" id="addBut" onClick={() => handleAdd()}> + </button>
+      </div>
+      <div className="addEvent" id="addEvent">
+          <AddEvent />
+          <div class="fix"></div>
+      </div>
+      <EventListTable/>
+      
     </div>
   )
 }
@@ -82,19 +90,15 @@ function EventListTable(){
 
     return (
       <>
-        <PopUp />
         <Table className='tableInside' columns={columns} data={dat}/>
-        <div className="addEvent">
-          <button className="addBut" id="addBut" onClick={() => handleAdd()}> + </button>
-          <AddEvent />
-          <div class="fix"></div>
-        </div>
+        
       </>
     );
 }
 
 function handleAdd(){
-  let add = document.getElementById("add");
+  //let add = document.getElementById("add");
+  let add = document.getElementById("addEvent");
     if(add.style.display!="flex"){
       add.style.display = "flex";
       document.getElementById("addBut").innerHTML='-';
@@ -383,8 +387,9 @@ function Table({ columns, data }) {
                       return (
                         //<td {...cell.getCellProps()}>{cell.render('Cell')}</td>
                         <td className="cellule" {...cell.getCellProps()}>
-                          <div contentEditable onClick={(truc) => {lol=truc.target.textContent; component=truc.currentTarget; console.log("on a " + component.textContent)}} onBlur={(truc)=> handleChange(truc.target.textContent,lol)}>{cell.render('Cell')} </div>
+                          <div >{cell.render('Cell')} </div>
                         </td>
+                        //<div contentEditable onClick={(truc) => {lol=truc.target.textContent; component=truc.currentTarget; console.log("on a " + component.textContent)}} onBlur={(truc)=> handleChange(truc.target.textContent,lol)}>{cell.render('Cell')} </div>
                         //<input type="text" className="edit" defaultValue={cell.value} onBlur={(truc)=> console.log(truc.target.value)} />
                       )
                     })}
@@ -418,7 +423,7 @@ function TableModif({ columns, data }) {
 
   return (
     <>
-      <table  {...getTableProps()}>
+      <table className="tableau" {...getTableProps()}>
         <thead>
           {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>
@@ -449,8 +454,8 @@ function TableModif({ columns, data }) {
                   {row.cells.map(cell => {
                     return (
                       //<td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                      <td {...cell.getCellProps()}>
-                        <div contentEditable onClick={(truc) => {lol=truc.target.textContent; component=truc.currentTarget; console.log("on a " + component.textContent)}} onBlur={(truc)=> handleChange(truc.target.textContent,lol)}>{cell.render('Cell')} </div>
+                      <td className="cellule" {...cell.getCellProps()}>
+                        <div contentEditable onClick={(truc) => {lol=truc.target.textContent; if(yes==false)component=truc.currentTarget; console.log("on a " + component.textContent)}} onBlur={(truc)=> handleChange(truc.target.textContent,lol)}>{cell.render('Cell')} </div>
                       </td>
                       //<input type="text" className="edit" defaultValue={cell.value} onBlur={(truc)=> console.log(truc.target.value)} />
                     )

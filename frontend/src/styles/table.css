@@ -82,6 +82,14 @@ button:hover{
     align-self: flex-start;
 }
 
+.theButton{
+    width: 100%;
+    text-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
 .addEvent{
     width: 70%;
     min-width: 450px;
@@ -90,10 +98,11 @@ button:hover{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    margin-bottom: 50px;
 }
 
 #add {
-    display: none;
+    display: flex;
     height: 100%;
     min-width: 510px;
     justify-content: space-around;
