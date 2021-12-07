@@ -83,19 +83,84 @@ button:hover{
 }
 
 .addEvent{
-    width: 100%;
+    width: 70%;
+    min-width: 450px;
+    height: 500px;
     text-align: start;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    background-color:aquamarine;
 }
 
 #add {
     display: none;
-
+    height: 100%;
+    min-width: 510px;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
     text-align: start;
-    background-color: brown;
+    margin-left: 5.5rem;
+    background-color: orangered;
+    box-shadow: 5px 5px 10px rgb(15, 15, 15);
+    border-radius: 15px;
+    color: var(--text);
+}
+
+#add form{
+    display: flex;
+    height: 100%;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+#add form input{
+    color: var(--text);
+    background-color: transparent;
+    text-align: left;
+    width: 500px;
+    height: 30px;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-color: var(--text);
+    font-size: 1rem;
+    outline: 0px solid transparent;
+}
+
+#add form input::placeholder{
+    color: var(--text);
+    opacity: 0.7;
+
+}
+
+#add .date{
+    justify-content: flex-start;
+    align-self: flex-start;
+    flex-direction: column;
+    display: flex;
+    font-size: 1.3rem;
+}
+
+#add .date input{
+    opacity: 0.7;
+}
+
+#add form select{
+    color: black;
+    background-color: transparent;
+    width: 50px;
+    height: 30px;
+    border-color: orangered;
+}
+
+#add form label{
+    text-align: start;
+    margin-bottom: 5px;
+}
+
+#add h3{
+    margin-top: 5px;
 }
 
 .fix{
