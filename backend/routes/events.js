@@ -89,9 +89,21 @@ router.post('/any/:from', async function(req, res) {
     //console.log(JSON.stringify(tst));
     //console.log(req.query.json);
     //console.log(JSON.parse(req.query.json));
-    
-    const result = await col.updateOne(JSON.parse(req.params.from), {$set: JSON.parse(req.query.to)});
-    console.log(result);
+
+    if(req.params.from.hasOwnProperty('event')){
+        const result = await col.updateOne(JSON.parse(req.params.from), {$set: {event: req.query.to}});
+        console.log(result);
+    } if(req.params.from.hasOwnProperty('date')){
+        const result = await col.updateOne(JSON.parse(req.params.from), {$set: {date: req.query.to}});
+        console.log(result);
+    } if(req.params.from.hasOwnProperty('position')){
+        const result = await col.updateOne(JSON.parse(req.params.from), {$set: {position: req.query.to}});
+        console.log(result);
+    } if(req.params.from.hasOwnProperty('couvreurs')){
+        const result = await col.updateOne(JSON.parse(req.params.from), {$set: {couvreurs: req.query.to}});
+        console.log(result);
+    }
+
     //Close connection
     await client.close();
 
@@ -165,13 +177,13 @@ router.post('/delete/:json', async function(req, res) {
 
     res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
 
-    console.log(req.query.id);
+    console.log(JSON.parse(req.params.json));
 
     await client.connect();
     console.log("Connected correctly to server");
     const db = client.db("jbtv");
     const col = db.collection("eventList");
-    const result = await col.deleteOne(JSON.parse(req.query.json));
+    const result = await col.deleteOne(JSON.parse(req.params.json));
     console.log(result);
     //Close connection
     await client.close();
