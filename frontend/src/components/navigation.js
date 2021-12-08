@@ -109,7 +109,7 @@ function Navigation() {
                 <NavLink exact to='/galerie' className="nav-item nav-link">  
                     <span className="material-icons md-36">&#xe412;</span>
                         
-                    <span className="link-text">Galerie</span>            
+                    <span className="link-text">Stats</span>            
                 </NavLink>
                 <NavLink exact to='/event' className="nav-item nav-link">
                     <span className="material-icons md-36">&#xe878;</span>
