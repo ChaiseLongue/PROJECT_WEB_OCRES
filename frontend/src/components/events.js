@@ -244,8 +244,7 @@ function AddEvent(){
 
 function sendData(){
   if(password==true){
-    axios.post('http://localhost:9000/events/any/' + JSON.stringify({event:oldValue.slice(0,oldValue.length-1)})
-      +'?to='+JSON.stringify({event: value}));
+    axios.post('http://localhost:9000/events/any/' + oldValue.slice(0,oldValue.length-1) +'?to='+value);
   }
   if(password==false){
     console.log("database: " + oldValue + " nouvelle: " + value);
