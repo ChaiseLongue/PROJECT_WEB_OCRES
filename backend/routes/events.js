@@ -137,6 +137,9 @@ router.post('/', async function(req, res) {
 router.delete('/', async function(req, res) {
 
     res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.setHeader('Access-Control-Allow-Origin:',' *');
+    res.setHeader('Access-Control-Allow-Methods: ' ,'GET, POST, PATCH, PUT, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers:',' Origin, Content-Type, X-Auth-Token'); 
 
     console.log(req.query.id);
 
