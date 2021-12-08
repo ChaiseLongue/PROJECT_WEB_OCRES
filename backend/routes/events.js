@@ -100,10 +100,9 @@ router.post('/any/:from', async function(req, res) {
 // ADD event 
 //To add send
 //   /?event=...&date=...(ISOFormat date)&name=... etc
-router.put('/', async function(req, res) {
+router.post('/', async function(req, res) {
 
     res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
-
     console.log(req.query.id);
 
     await client.connect();

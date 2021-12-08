@@ -269,11 +269,16 @@ function AddEvent(){
 
   const handleFormChangeC = (e) =>{
     events.couvreurs=e.target.value.split(' ');
-    alert(events.couvreurs + " + " + events.couvreurs[0] + " et " + events.couvreurs[1] );
   }
   
-  const send = (e) => {
-    alert(events.event + " " + events.date + " " +events.position + " " +events.couvreurs);
+  const send = async (e) => {
+    //alert(events.event + " " + events.date + " " +events.position + " " +events.couvreurs);
+    let link='http://localhost:9000/events?event=' + events.event + '&date=' + events.date + '&name=' + events.position + '&lat=0&lng=0';
+    for(let i=0; i<events.couvreurs.length; i++){
+      link=link + '&couvreurs= ' + events.couvreurs[i];
+    }
+    alert(link);
+    await axios.post(link);
   }
 
   let year=new Date();
