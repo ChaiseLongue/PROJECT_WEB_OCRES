@@ -246,9 +246,11 @@ function AddEvent(){
 function sendData(){
   if(password==true && del==true){
     //on supp
-    console.log("on supp");
+    console.log("on supp: " + oldValue);
+    axios.post('http://localhost:9000/events/delete/' + JSON.stringify({event:oldValue.slice(0,oldValue.length-1)}));
+    /*axios.post('http://localhost:9000/events/any/' + JSON.stringify({event:oldValue.slice(0,oldValue.length-1)})
+      +'?to='+JSON.stringify({event: value}));*/
   }
-
   if(password==false && del==true){
     var data="Enter Password:<br></br><input id='password' type='password' placeholder='Password'>";
     document.getElementById("content").innerHTML = data;
@@ -267,8 +269,22 @@ function sendData(){
     document.getElementById("no").innerHTML = "Cancel";
     password=true;
   }
-  else{
+  //We update the data
+  else if(password==true && del==false){
     console.log(document.getElementById("password").value);
+    password=false;
+    let popUp = document.getElementById("pop-up");
+    popUp.style.display = "none";
+    yes=false;
+    del=false;
+
+    console.log("on update");
+
+    //We set back the buttons setup
+    document.getElementById("yes").innerHTML = "Yes";
+    document.getElementById("no").innerHTML = "No";
+  }
+  else{
     password=false;
     let popUp = document.getElementById("pop-up");
     popUp.style.display = "none";
@@ -323,6 +339,7 @@ async function handleChange(params, dvalue){
     del=true;
     let popUp = document.getElementById("pop-up");
     popUp.style.display = "flex";
+    oldValue=dvalue;
       //axios.post('http://localhost:9000/events/delete/' + JSON.stringify({event: dvalue}));
     //component.innerHTML=dvalue;
   }

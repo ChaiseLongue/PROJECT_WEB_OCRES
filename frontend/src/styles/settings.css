@@ -305,18 +305,33 @@ body{
 
 .Page .chart{
   color: var(--text);
+  justify-content:space-around;
+  display: flex;
+  flex-direction:column;
+}
+
+.Page .chart .charts{
+  justify-content:space-around;
+  display: flex;
+  flex-direction:row;
+  flex-wrap: wrap;
 }
 
 .Page .chart .list{
-  width: 20%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
   font-size: 1.2rem;
-  position: absolute;
   top: 0;
   right: 0;
   margin: 20px;
   margin-bottom: 5rem;
 }
 
+.Page .chart .list .event{
+  margin: 20px;
+}
 
 
 
