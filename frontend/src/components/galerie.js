@@ -56,55 +56,57 @@ export default function Graphs(){
 
     return (
         <div className='chart'>
-            <XYPlot width={600} height={500} margin={150}>
-                <HorizontalGridLines style={{stroke: '#B7E9ED'}} />
-                <VerticalGridLines style={{stroke: '#B7E9ED'}} />
-                <XAxis
-                    title="Numéro de l'évènement"
-                    style={{
-                        fill: 'var(--text)',
-                        line: {stroke: '#ADDDE1'},
-                        ticks: {stroke: '#ADDDE1'},
-                        text: {stroke: 'none', fontWeight: 600}
-                    }}
-                />
-                <YAxis title="Nombre de photos" style={{fill: 'var(--text)', text: {stroke: 'none', fontWeight: 600}}}/>
-                <LineSeries
-                    className="first-series"
-                    data={datas}
-                    stroke='var(--text)'
-                    style={{
-                        strokeWidth: 2.5,
-                        fill: 'none'
-                    }}
-                />
-                <MarkSeries
-                    className="second-series"
-                    data={datas}
-                    stroke='var(--bg-secondary)'
-                    color='var(--text)'
-                    style={{
-                        strokeWidth: 1,
-                        fill: 'var(--bg-secondary)'
-                    }}
-                />
-            </XYPlot>
+            <div className='charts'>
+                <XYPlot width={500} height={500} margin={{left: 60, right: 10, top: 60, bottom: 100}}>
+                    <HorizontalGridLines style={{stroke: '#B7E9ED'}} />
+                    <VerticalGridLines style={{stroke: '#B7E9ED'}} />
+                    <XAxis
+                        title="Numéro de l'évènement"
+                        style={{
+                            fill: 'var(--text)',
+                            line: {stroke: '#ADDDE1'},
+                            ticks: {stroke: '#ADDDE1'},
+                            text: {stroke: 'none', fontWeight: 600}
+                        }}
+                    />
+                    <YAxis title="Nombre de photos" style={{fill: 'var(--text)', text: {stroke: 'none', fontWeight: 600}}}/>
+                    <LineSeries
+                        className="first-series"
+                        data={datas}
+                        stroke='var(--text)'
+                        style={{
+                            strokeWidth: 2.5,
+                            fill: 'none'
+                        }}
+                    />
+                    <MarkSeries
+                        className="second-series"
+                        data={datas}
+                        stroke='var(--bg-secondary)'
+                        color='var(--text)'
+                        style={{
+                            strokeWidth: 1,
+                            fill: 'var(--bg-secondary)'
+                        }}
+                    />
+                </XYPlot>
+                <XYPlot
+                    margin={{left: 130, right: 10, top: 60, bottom: 130}}
+                    xType="time"
+                    width={500}
+                    height={500}>
+                    <VerticalGridLines />
+                    <HorizontalGridLines />
+                    <XAxis tickValues={ticks} tickFormat={v => {
+                        return new Date(v).toLocaleDateString("fr-FR",{ year: 'numeric', month: 'short', day: 'numeric' });
+                        } } tickLabelAngle={-45} style={{fill:'var(--text)'}} />
+                    <YAxis style={{fill:'var(--text)'}}/>
+                    <VerticalRectSeries data={datasTime} style={{stroke: 'var(--text)', strokeWidth: 1}} />
+                </XYPlot>
+            </div>
             <div className='list'>
                 <List events={events}/>
             </div>
-            <XYPlot
-                margin={150}
-                xType="time"
-                width={600}
-                height={500}>
-                <VerticalGridLines />
-                <HorizontalGridLines />
-                <XAxis tickValues={ticks} tickFormat={v => {
-                    return new Date(v).toLocaleDateString("fr-FR",{ year: 'numeric', month: 'short', day: 'numeric' });
-                    } } tickLabelAngle={-45} style={{fill:'var(--text)'}} />
-                <YAxis style={{fill:'var(--text)'}}/>
-                <VerticalRectSeries data={datasTime} style={{stroke: 'var(--text)', strokeWidth: 1}} />
-            </XYPlot>
         </div>
     )
 }
