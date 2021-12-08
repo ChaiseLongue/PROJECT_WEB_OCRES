@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useTable, useSortBy } from 'react-table'
 import "../styles/table.css";
 const { default: axios } = require('axios');
-
-
 let value=null;
 let oldValue=null;
 var yes=false;
@@ -307,17 +305,7 @@ async function handleChange(params, dvalue){
     
   }
   else if(params==''){
-    const { MongoClient, ObjectId } = require("mongodb");
-    const url = "mongodb+srv://admin:admin@cluster0.2ztwl.mongodb.net/?retryWrites=true&w=majority";
-    const client = new MongoClient(url);
-    console.log('empty');
-    await client.connect();
-    console.log("Connected correctly to server");
-    const db = client.db("jbtv");
-    const col = db.collection("eventList");
-    const result = await col.deleteOne({event: params});
-    console.log(result);
-    //axios.delete('http://localhost:9000/events/' + JSON.stringify({event: 'noel2'}),{headers: {'Content-Type' : 'application/x-www-form-urlencoded'}});
+    axios.post('http://localhost:9000/events/delete/' + JSON.stringify({event: dvalue}));
     //component.innerHTML=dvalue;
   }
   else if(dvalue==''){
