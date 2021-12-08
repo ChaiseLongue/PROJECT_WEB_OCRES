@@ -90,19 +90,25 @@ router.post('/any/:from', async function(req, res) {
     //console.log(req.query.json);
     //console.log(JSON.parse(req.query.json));
 
-    if(req.params.from.hasOwnProperty('event')){
-        const result = await col.updateOne(JSON.parse(req.params.from), {$set: {event: req.query.to}});
-        console.log(result);
-    } if(req.params.from.hasOwnProperty('date')){
-        const result = await col.updateOne(JSON.parse(req.params.from), {$set: {date: req.query.to}});
-        console.log(result);
-    } if(req.params.from.hasOwnProperty('position')){
-        const result = await col.updateOne(JSON.parse(req.params.from), {$set: {position: req.query.to}});
-        console.log(result);
-    } if(req.params.from.hasOwnProperty('couvreurs')){
-        const result = await col.updateOne(JSON.parse(req.params.from), {$set: {couvreurs: req.query.to}});
-        console.log(result);
+    console.log(JSON.stringify(req.params.from));
+    console.log(JSON.stringify(req.query.to));
+
+    var result = await col.updateOne({event: req.params.from}, {$set: {event: req.query.to}});
+    console.log(result);
+    result = await col.updateOne({date: req.params.from}, {$set: {date: req.query.to}});
+    console.log(result);
+    result = await col.updateOne({'position.name': req.params.from}, {$set: {'position.name': req.query.to}});
+    console.log(result);
+    var tab = req.params.from.split(' ');
+    for (let i = 1; i < tab.length; i++) {
+        tab[i]=' '+tab[i];
     }
+    var tab2 = req.query.to.split(' ');
+    for (let i = 1; i < tab2.length; i++) {
+        tab2[i]=' '+tab2[i];
+    }
+    result = await col.updateOne({couvreurs: tab}, {$set: {couvreurs: tab2}});
+    console.log(result);
 
     //Close connection
     await client.close();

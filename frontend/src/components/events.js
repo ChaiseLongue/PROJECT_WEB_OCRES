@@ -279,6 +279,7 @@ function sendData(){
     del=false;
 
     console.log("on update");
+    axios.post('http://localhost:9000/events/any/' + oldValue.slice(0,oldValue.length-1) +'?to='+value);
 
     //We set back the buttons setup
     document.getElementById("yes").innerHTML = "Yes";
