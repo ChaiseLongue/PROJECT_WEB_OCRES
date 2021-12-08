@@ -18,8 +18,8 @@ router.get('/', async function(req, res, next) {
     const db = client.db("jbtv");
     // Use the collection "people"
     const col = db.collection("eventList");
-    // Find all events later than today
-    const response = await (await col.find({"date": {"$gte": new Date()} }).toArray());
+    // Find all events later than today and keep only next 2
+    const response = await (await col.find({"date": {"$gte": new Date()} }).toArray()).sort((a,b)=>a.date.getTime() - b.date.getTime()).slice(0,3);
     //Get only the date as YYYY-MM-DD
     response.forEach(e => e.date = e.date.toLocaleDateString("fr-FR",{ weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }));
     //Close connection
