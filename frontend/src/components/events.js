@@ -248,22 +248,53 @@ function PopUp(params, dvalue){
 */
 
 function AddEvent(){
+  const events ={
+    event: "",
+    date: "",
+    position: "",
+    couvreurs: [{name : ""}],
+  }
+
+  const handleFormChangeE = (e) =>{
+    events.event=e.target.value;
+  }
+
+  const handleFormChangeD = (e) =>{
+    events.date=e.target.value;
+  }
+
+  const handleFormChangeP = (e) =>{
+    events.position=e.target.value;
+  }
+
+  const handleFormChangeC = (e) =>{
+    events.couvreurs=e.target.value.split(' ');
+    alert(events.couvreurs + " + " + events.couvreurs[0] + " et " + events.couvreurs[1] );
+  }
+  
+  const send = (e) => {
+    alert(events.event + " " + events.date + " " +events.position + " " +events.couvreurs);
+  }
+
   let year=new Date();
   return (
     <div id="add">
       <h3>Add an Event</h3>
-      <form >
-        <input type="text" placeholder="Event Name" />
+      <form onSubmit={(event) => send(event)}>
+        <input type="text" placeholder="Event Name" name="event" onBlur={(e) => handleFormChangeE(e)} required/>
         <div className="date">
           <label>Date of the event</label>
-          <input type="date"/>
+          <input type="date" name="date" onBlur={(e) => handleFormChangeD(e)} required/>
         </div>
-        <input type="text" placeholder="Couvreurs" />
-        <input id="submit" type="submit" value="SUBMIT"/>
+        <input type="text" placeholder="Place of the Event" name="position" onBlur={(e) => handleFormChangeP(e)} required/>
+        <input type="text" placeholder="Couvreurs" name="couvreurs" onBlur={(e) => handleFormChangeC(e)} required/>
+        <input id="submit" type="submit" value="SUBMIT" required/>
       </form>
     </div>
   )
 }
+
+
 
 function sendData(){
   if(password==false){
