@@ -189,81 +189,58 @@ function PopUp(params, dvalue){
   );
 }
 
-/*
-<div className="date">
-          <select>
-            <option value={year.getFullYear()}>{year.getFullYear()}</option>
-            <option value={year.getFullYear() + 1}>{year.getFullYear()+1}</option>
-            <option value={year.getFullYear() + 2}>{year.getFullYear()+2}</option>
-            <option value={year.getFullYear() + 3}>{year.getFullYear()+3}</option>
-          </select>
-          <select>
-            <option value="1">Jan</option>
-            <option value='2'>Fev</option>
-            <option value='3'>Apr</option>
-            <option value='4'>Mar</option>
-            <option value='5'>May</option>
-            <option value='6'>Jun</option>
-            <option value='7'>Jul</option>
-            <option value='8'>Aug</option>
-            <option value='9'>Sep</option>
-            <option value='10'>Oct</option>
-            <option value='11'>Nov</option>
-            <option value='12'>Dec</option>
-          </select>
-          <select>
-            <option value='1'>1</option>
-            <option value='2'>2</option>
-            <option value='3'>3</option>
-            <option value='4'>4</option>
-            <option value='5'>5</option>
-            <option value='6'>6</option>
-            <option value='7'>7</option>
-            <option value='8'>8</option>
-            <option value='9'>9</option>
-            <option value='10'>10</option>
-            <option value='11'>11</option>
-            <option value='12'>12</option>
-            <option value='13'>13</option>
-            <option value='14'>14</option>
-            <option value='14'>15</option>
-            <option value='16'>16</option>
-            <option value='17'>17</option>
-            <option value='18'>18</option>
-            <option value='19'>19</option>
-            <option value='20'>20</option>
-            <option value='21'>21</option>
-            <option value='22'>22</option>
-            <option value='23'>23</option>
-            <option value='24'>24</option>
-            <option value='25'>25</option>
-            <option value='26'>26</option>
-            <option value='27'>27</option>
-            <option value='28'>28</option>
-            <option value='29'>29</option>
-            <option value='30'>30</option>
-            <option value='31'>31</option>
-          </select>
-          </div>
-*/
-
 function AddEvent(){
+  const events ={
+    event: "",
+    date: "",
+    position: "",
+    couvreurs: [{name : ""}],
+  }
+
+  const handleFormChangeE = (e) =>{
+    events.event=e.target.value;
+  }
+
+  const handleFormChangeD = (e) =>{
+    events.date=e.target.value;
+  }
+
+  const handleFormChangeP = (e) =>{
+    events.position=e.target.value;
+  }
+
+  const handleFormChangeC = (e) =>{
+    events.couvreurs=e.target.value.split(' ');
+  }
+  
+  const send = async (e) => {
+    //alert(events.event + " " + events.date + " " +events.position + " " +events.couvreurs);
+    let link='http://localhost:9000/events?event=' + events.event + '&date=' + events.date + '&name=' + events.position + '&lat=0&lng=0';
+    for(let i=0; i<events.couvreurs.length; i++){
+      link=link + '&couvreurs= ' + events.couvreurs[i];
+    }
+    await axios.post(link);
+  }
+
   let year=new Date();
   return (
     <div id="add">
       <h3>Add an Event</h3>
-      <form >
-        <input type="text" placeholder="Event Name" />
+      <form onSubmit={(event) => send(event)}>
+        <input type="text" placeholder="Event Name" name="event" onBlur={(e) => handleFormChangeE(e)} required/>
         <div className="date">
           <label>Date of the event</label>
-          <input type="date"/>
+          <input type="date" name="date" onBlur={(e) => handleFormChangeD(e)} required/>
         </div>
-        <input type="text" placeholder="Couvreurs" />
-        <input id="submit" type="submit" value="SUBMIT"/>
+        <input type="text" placeholder="Place of the Event" name="position" onBlur={(e) => handleFormChangeP(e)} required/>
+        <input type="text" placeholder="Couvreurs" name="couvreurs" onBlur={(e) => handleFormChangeC(e)} required/>
+        <input id="submit" type="submit" value="SUBMIT" required/>
       </form>
     </div>
   )
 }
+
+
 
 function sendData(){
   if(password==false){
@@ -291,7 +268,7 @@ function sendData(){
   
 }
 
-function handleChange(params, dvalue){
+async function handleChange(params, dvalue){
   if(params!=dvalue && dvalue!=null && yes==false && params!='' && dvalue!='' && params!='Cliquer ici pour acceder' && dvalue!='Cliquer ici pour acceder'){
     console.log("on rentre dans la boucle " + params + " " + dvalue);
     //return <div className="pop-up">Do you Really want to change ${dvalue} by ${params} ? </div>
@@ -322,11 +299,14 @@ function handleChange(params, dvalue){
       document.getElementById("yes").innerHTML = "Yes";
       document.getElementById("no").innerHTML = "No";
       password=false;
+      //We update in the database
+      //axios.post()
     }
     
   }
   else if(params==''){
-    component.innerHTML=dvalue;
+    axios.post('http://localhost:9000/events/delete/' + JSON.stringify({event: dvalue}));
+    //component.innerHTML=dvalue;
   }
   else if(dvalue==''){
     component.innerHTML=params;

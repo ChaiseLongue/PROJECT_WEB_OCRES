@@ -63,6 +63,8 @@ router.post('/:id', async function(req, res) {
     const col = db.collection("eventList");
     const result = await col.updateOne({_id: ObjectId(req.params.id)}, {$set: JSON.parse(req.query.json)});
     console.log(result);
+    //Close connection
+    await client.close();
 
     // Return message
     res.json({
@@ -90,6 +92,8 @@ router.post('/any/:from', async function(req, res) {
     
     const result = await col.updateOne(JSON.parse(req.params.from), {$set: JSON.parse(req.query.to)});
     console.log(result);
+    //Close connection
+    await client.close();
 
     // Return message
     res.json({
@@ -100,10 +104,9 @@ router.post('/any/:from', async function(req, res) {
 // ADD event 
 //To add send
 //   /?event=...&date=...(ISOFormat date)&name=... etc
-router.put('/', async function(req, res) {
+router.post('/', async function(req, res) {
 
     res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
-
     console.log(req.query.id);
 
     await client.connect();
@@ -126,6 +129,8 @@ router.put('/', async function(req, res) {
             couvreurs: req.query.couvreurs
         });
     console.log(result);
+    //Close connection
+    await client.close();
 
     // Return message
     res.json({
@@ -135,7 +140,7 @@ router.put('/', async function(req, res) {
 
 //To delete send
 //   /?json=JSON.stringify(json object)
-router.delete('/', async function(req, res) {
+router.delete('/:json', async function(req, res) {
 
     res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
 
@@ -147,6 +152,29 @@ router.delete('/', async function(req, res) {
     const col = db.collection("eventList");
     const result = await col.deleteOne(JSON.parse(req.query.json));
     console.log(result);
+    //Close connection
+    await client.close();
+
+    // Return message
+    res.json({
+      message: `Just deleted ${req.query.json}`
+  });
+});
+
+router.post('/delete/:json', async function(req, res) {
+
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+
+    console.log(req.query.id);
+
+    await client.connect();
+    console.log("Connected correctly to server");
+    const db = client.db("jbtv");
+    const col = db.collection("eventList");
+    const result = await col.deleteOne(JSON.parse(req.query.json));
+    console.log(result);
+    //Close connection
+    await client.close();
 
     // Return message
     res.json({
