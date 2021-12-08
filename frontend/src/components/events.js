@@ -243,6 +243,10 @@ function AddEvent(){
 
 
 function sendData(){
+  if(password==true){
+    axios.post('http://localhost:9000/events/any/' + JSON.stringify({event:oldValue.slice(0,oldValue.length-1)})
+      +'?to='+JSON.stringify({event: value}));
+  }
   if(password==false){
     console.log("database: " + oldValue + " nouvelle: " + value);
     //on se connecte à la db
@@ -305,7 +309,7 @@ async function handleChange(params, dvalue){
     
   }
   else if(params==''){
-    axios.post('http://localhost:9000/events/delete/' + JSON.stringify({event: dvalue}));
+    axios.post('http://localhost:9000/events/delete/' + JSON.stringify({event:dvalue.slice(0,dvalue.length-1)}));
     //component.innerHTML=dvalue;
   }
   else if(dvalue==''){
