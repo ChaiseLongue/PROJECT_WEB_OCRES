@@ -6,6 +6,7 @@ let value=null;
 let oldValue=null;
 var yes=false;
 var password=false;
+var del=false;
 let component=null;
 
 export default function EventTables(){
@@ -243,10 +244,21 @@ function AddEvent(){
 
 
 function sendData(){
-  if(password==true){
-    axios.post('http://localhost:9000/events/any/' + oldValue.slice(0,oldValue.length-1) +'?to='+value);
+  if(password==true && del==true){
+    //on supp
+    console.log("on supp: " + oldValue);
+    axios.post('http://localhost:9000/events/delete/' + JSON.stringify({event:oldValue.slice(0,oldValue.length-1)}));
+    /*axios.post('http://localhost:9000/events/any/' + JSON.stringify({event:oldValue.slice(0,oldValue.length-1)})
+      +'?to='+JSON.stringify({event: value}));*/
   }
-  if(password==false){
+  if(password==false && del==true){
+    var data="Enter Password:<br></br><input id='password' type='password' placeholder='Password'>";
+    document.getElementById("content").innerHTML = data;
+    document.getElementById("yes").innerHTML = "Delete";
+    document.getElementById("no").innerHTML = "Cancel";
+    password=true;
+  }
+  else if(password==false){
     console.log("database: " + oldValue + " nouvelle: " + value);
     //on se connecte à la db
     //on trouve lelement qui correspond à oldValue,
@@ -257,12 +269,28 @@ function sendData(){
     document.getElementById("no").innerHTML = "Cancel";
     password=true;
   }
-  else{
+  //We update the data
+  else if(password==true && del==false){
     console.log(document.getElementById("password").value);
     password=false;
     let popUp = document.getElementById("pop-up");
     popUp.style.display = "none";
     yes=false;
+    del=false;
+
+    console.log("on update");
+    axios.post('http://localhost:9000/events/any/' + oldValue.slice(0,oldValue.length-1) +'?to='+value);
+
+    //We set back the buttons setup
+    document.getElementById("yes").innerHTML = "Yes";
+    document.getElementById("no").innerHTML = "No";
+  }
+  else{
+    password=false;
+    let popUp = document.getElementById("pop-up");
+    popUp.style.display = "none";
+    yes=false;
+    del=false;
 
     //We set back the buttons setup
     document.getElementById("yes").innerHTML = "Yes";
@@ -286,13 +314,13 @@ async function handleChange(params, dvalue){
       value=params;
       yes=true;
       console.log("dans la fonction old: " + oldValue + " / nouv: " + value );
-      // PROBLEME SI ON MODIFIE UNE DATE
   }
   else if(params==-1){
     console.log("on ferme");
     let popUp = document.getElementById("pop-up");
     popUp.style.display = "none";
     yes=false;
+    del=false;
     console.log("component: " + component.textContent);
     component.innerHTML=oldValue;
     console.log("component: " + component.textContent);
@@ -308,7 +336,12 @@ async function handleChange(params, dvalue){
     
   }
   else if(params==''){
-    axios.post('http://localhost:9000/events/delete/' + JSON.stringify({event:dvalue.slice(0,dvalue.length-1)}));
+    document.getElementById("content").innerHTML = "Are you sure you want to delete the event " + dvalue + " ?";
+    del=true;
+    let popUp = document.getElementById("pop-up");
+    popUp.style.display = "flex";
+    oldValue=dvalue;
+      //axios.post('http://localhost:9000/events/delete/' + JSON.stringify({event: dvalue}));
     //component.innerHTML=dvalue;
   }
   else if(dvalue==''){
